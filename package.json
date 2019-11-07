@@ -1,0 +1,13 @@
+{
+  "name": "PresidaFutBot",
+  "version": "0.1",
+  "description": "Telegram Bot to Organize Soccer Matches",
+  "author": "Milton Soares Filho <milton.soares.filho@gmail.com>",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "telegraf": "^3.33.3"
+  }
+}
