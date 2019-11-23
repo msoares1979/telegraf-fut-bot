@@ -48,7 +48,7 @@ class FutMatch {
         var c = this.confirmed
         var a = this.absent
 
-        return `**${this.title}**\nConfirmados (${c.length}): ` + c + '\n' + 'Ausentes: ' + a
+        return `*${this.title}*\nConfirmados (${c.length}): ` + c + '\n' + 'Ausentes: ' + a
     }
 }
 
