@@ -2,10 +2,54 @@ const Telegraf = require('telegraf')
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 
-let match = {
-    'titulo': '',
-    'confirmed': [],
-    'absent': []
+class FutMatch {
+    constructor (title) {
+        this.mTitle = title
+        this.mConfirmed = []
+
+        Object.getOwnPropertyNames(FutMatch.prototype)
+          .filter((key) => key !== 'constructor' && typeof this[key] === 'function')
+          .forEach((key) => (this[key] = this[key].bind(this)))
+    }
+
+    get title () {
+        return this.mTitle
+    }
+
+    set title (value) {
+        this.mTitle = value
+    }
+
+    get confirmed () {
+        return this.mConfirmed
+            .filter((v) => v.confirmed === true)
+            .map((v) => v.name)
+    }
+
+    get absent () {
+        return this.mConfirmed
+            .filter((v) => v.confirmed === false)
+            .map((v) => v.name)
+    }
+
+    confirm (name) {
+        this.mConfirmed = this.mConfirmed.filter((v) => v.name != name)
+
+        this.mConfirmed.push({'name': name, 'confirmed': true})
+    }
+
+    unconfirm (name) {
+        this.mConfirmed = this.mConfirmed.filter((v) => v.name != name)
+
+        this.mConfirmed.push({'name': name, 'confirmed': false})
+    }
+
+    toString () {
+        var c = this.confirmed
+        var a = this.absent
+
+        return `**${this.title}**\nConfirmados (${c.length}): ` + c + '\n' + 'Ausentes: ' + a
+    }
 }
 
 const StartPanel = Markup.inlineKeyboard([
