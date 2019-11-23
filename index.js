@@ -52,6 +52,8 @@ class FutMatch {
     }
 }
 
+const match = new FutMatch('FutStark')
+
 const StartPanel = Markup.inlineKeyboard([
     Markup.callbackButton('Confirmado', 'confirmado'),
     Markup.callbackButton('Ausente', 'ausente')
@@ -60,13 +62,29 @@ const StartPanel = Markup.inlineKeyboard([
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.command('convocar', (ctx) => ctx.reply('Quem vai?', Extra.markup(StartPanel)))
-bot.action('confirmado', ({ update }) => console.log('Confirmado', update.callback_query.from))
-bot.action('ausente', ({ update }) => console.log('Ausente', update.callback_query.from))
+bot.action('confirmado', (ctx) => {
+    match.confirm(ctx.update.callback_query.from.first_name)
+    ctx.reply(match.toString(), Extra.markdown())
+})
+bot.action('ausente', (ctx) => {
+    match.unconfirm(ctx.update.callback_query.from.first_name)
+    ctx.reply(match.toString(), Extra.markdown())
+})
 
-bot.command('lista', (ctx) => ctx.reply('Hello'))
-bot.command('confirmado', (ctx) => ctx.reply('Hello'))
-bot.command('ausente', (ctx) => ctx.reply('Hello'))
-bot.command('titulo', (ctx) => ctx.reply('Hello'))
+bot.command('lista', (ctx) => ctx.reply(match.toString(), Extra.markdown()))
+bot.command('confirmado', (ctx) => {
+    match.confirm(ctx.message.from.first_name)
+    ctx.reply(match.toString(), Extra.markdown())
+})
+bot.command('ausente', (ctx) => {
+    match.unconfirm(ctx.message.from.first_name)
+    ctx.reply(match.toString(), Extra.markdown())
+})
+bot.command('titulo', (ctx) => {
+    match.title = ctx.message.text
+    ctx.reply(match.toString(), Extra.markdown())
+})
+
 bot.use((ctx, next) => {
     //ctx.state.role = getUserRole(ctx.message)
     console.log(`${ctx.state.role} ${ctx.message.from.first_name} ${ctx.message.text}`)
