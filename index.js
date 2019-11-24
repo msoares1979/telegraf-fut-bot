@@ -62,27 +62,27 @@ const StartPanel = Markup.inlineKeyboard([
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.command('convocar', (ctx) => ctx.reply('Quem vai?', Extra.markup(StartPanel)))
-bot.action('confirmado', (ctx) => {
-    match.confirm(ctx.update.callback_query.from.first_name)
-    ctx.reply(match.toString(), Extra.markdown())
+bot.action('confirmado', ({ update, replyWithMarkdown }) => {
+    match.confirm(update.callback_query.from.first_name)
+    replyWithMarkdown(match.toString())
 })
-bot.action('ausente', (ctx) => {
-    match.unconfirm(ctx.update.callback_query.from.first_name)
-    ctx.reply(match.toString(), Extra.markdown())
+bot.action('ausente', ({ update, replyWithMarkdown }) => {
+    match.unconfirm(update.callback_query.from.first_name)
+    replyWithMarkdown(match.toString())
 })
 
-bot.command('lista', (ctx) => ctx.reply(match.toString(), Extra.markdown()))
+bot.command('lista', (ctx) => ctx.replyWithMarkdown(match.toString()))
 bot.command('confirmado', (ctx) => {
     match.confirm(ctx.message.from.first_name)
-    ctx.reply(match.toString(), Extra.markdown())
+    ctx.replyWithMarkdown(match.toString())
 })
 bot.command('ausente', (ctx) => {
     match.unconfirm(ctx.message.from.first_name)
-    ctx.reply(match.toString(), Extra.markdown())
+    ctx.replyWithMarkdown(match.toString())
 })
 bot.command('titulo', (ctx) => {
     match.title = ctx.message.text
-    ctx.reply(match.toString(), Extra.markdown())
+    ctx.replyWithMarkdown(match.toString())
 })
 
 bot.use((ctx, next) => {
