@@ -73,11 +73,17 @@ bot.action('ausente', ({ update, replyWithMarkdown }) => {
 
 bot.command('lista', (ctx) => ctx.replyWithMarkdown(match.toString()))
 bot.command('confirmado', (ctx) => {
-    match.confirm(ctx.message.from.first_name)
+    names = ctx.message.text.replace('/confirmado', '').trim().split(',')
+    if (names[0] === '')
+        names[0] = ctx.message.from.first_name
+    names.forEach((name) => match.confirm(name.trim()))
     ctx.replyWithMarkdown(match.toString())
 })
 bot.command('ausente', (ctx) => {
-    match.unconfirm(ctx.message.from.first_name)
+    names = ctx.message.text.replace('/ausente', '').trim().split(',')
+    if (names[0] === '')
+        names[0] = ctx.message.from.first_name
+    names.forEach((name) => match.unconfirm(name.trim()))
     ctx.replyWithMarkdown(match.toString())
 })
 bot.command('titulo', (ctx) => {
