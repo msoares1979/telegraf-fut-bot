@@ -3,8 +3,11 @@ const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 
 class FutMatch {
-    constructor (title) {
-        this.mTitle = title
+    constructor () {
+        var d = new Date()
+        d.setDate(d.getDate() + (2 + 7 - d.getDay()) % 7);
+        this.mTitle = `FutStark ${d.getDate()}/${d.getMonth() + 1} 20h`
+
         this.mConfirmed = []
 
         Object.getOwnPropertyNames(FutMatch.prototype)
@@ -52,7 +55,7 @@ class FutMatch {
     }
 }
 
-const match = new FutMatch('FutStark')
+const match = new FutMatch()
 
 const StartPanel = Markup.inlineKeyboard([
     Markup.callbackButton('Confirmado', 'confirmado'),
