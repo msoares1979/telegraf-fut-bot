@@ -33,14 +33,14 @@ class FutMatch {
     }
 
     confirm (name) {
+        console.log(`'${name}'`, 'unconfirmed')
         this.mConfirmed = this.mConfirmed.filter((v) => v.name != name)
-
         this.mConfirmed.push({'name': name, 'confirmed': true})
     }
 
     unconfirm (name) {
+        console.log(`'${name}'`, 'unconfirmed')
         this.mConfirmed = this.mConfirmed.filter((v) => v.name != name)
-
         this.mConfirmed.push({'name': name, 'confirmed': false})
     }
 
