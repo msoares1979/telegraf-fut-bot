@@ -47,6 +47,10 @@ class FutMatch {
         this.mConfirmed.push({'name': name, 'confirmed': false})
     }
 
+    clear () {
+        this.mConfirmed.length = 0
+    }
+
     toString () {
         var c = this.confirmed
         var a = this.absent
@@ -87,6 +91,10 @@ bot.command('ausente', (ctx) => {
     if (names[0] === '')
         names[0] = ctx.message.from.first_name
     names.forEach((name) => match.unconfirm(name.trim()))
+    ctx.replyWithMarkdown(match.toString())
+})
+bot.command('limpar', (ctx) => {
+    match.clear()
     ctx.replyWithMarkdown(match.toString())
 })
 bot.command('titulo', (ctx) => {
