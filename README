@@ -2,3 +2,11 @@ Presida Fut Bot
 ===============
 
 Telegram Bot to organize soccer matches.
+
+How to Run
+==========
+
+```
+npm install -save
+npm start
+```
