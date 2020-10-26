@@ -10,3 +10,8 @@ How to Run
 npm install -save
 npm start
 ```
+
+Using Docker
+------------
+
+    docker run -it -e BOT_TOKEN=`cat ../TOKEN` -v $PWD:/code -w /code node:12 npm start
